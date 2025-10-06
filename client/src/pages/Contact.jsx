@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import downloadImage from "../assets/images/download.png";
+import { ShopContext } from "../context/ShopContext";
+
+const defaultContactFormData = {
+  username: "",
+  email: "",
+  message: "",
+};
 export default function Contact() {
-  const [contact, setContact] = useState({
-    username: "",
-    email: "",
-    message: "",
-  });
+  const { user, setUser } = useContext(ShopContext);
+  const [userData, setUserData] = useState(true);
+  const [contact, setContact] = useState(defaultContactFormData);
+
+  if (userData && user) {
+    setContact({
+      username: user.username,
+      email: user.email,
+      message: "",
+    });
+    setUserData(false);
+  }
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -17,9 +31,26 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(user);
+    // alert(user);
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/form/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contact),
+      });
+      if (response.ok) {
+        setContact(defaultContactFormData);
+        const data = await response.json();
+        console.log(data);
+        alert("Message sent successfully");
+      }
+    } catch (error) {
+      alert("message not sent");
+      console.log(error);
+    }
   };
 
   return (

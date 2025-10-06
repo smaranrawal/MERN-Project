@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import ProductItem from "../components/ProductItem";
 import { products } from "../assets/assets";
-
+import { useSearchParams } from "react-router-dom";
+  
 export default function Collection() {
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);

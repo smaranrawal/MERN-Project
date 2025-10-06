@@ -7,7 +7,7 @@ import RelatedProducts from "../components/RelatedProducts";
 
 export default function Products() {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart,getCartCount } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
@@ -17,7 +17,7 @@ export default function Products() {
       if (item.id === Number(productId)) {
         setProductData(item);
         setImage(item.image[0]);
-        console.log(item);
+        // console.log(item);
 
         return null; // prevent React warnings
       }
@@ -89,7 +89,10 @@ export default function Products() {
               ))}
             </div>
           </div>
-          <button className="bg-green-700 text-white px-8 py-3 text-sm active:bg-gray-400">
+          <button
+            onClick={() => addToCart(productData.id, size)}
+            className="bg-green-700 text-white px-8 py-3 text-sm active:bg-gray-400"
+          >
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5 text-amber-50" />
@@ -106,7 +109,7 @@ export default function Products() {
           <b className="border px-5 py-3 text-sm text-amber-50">Description</b>
           <p className="border px-5 py-3 text-sm text-amber-50">Reviews</p>
         </div>
-        <div className="flex flex-col gap-4 border px-6 text-sm text-gray-300">
+        <div className="flex flex-col mr-6 gap-4 border px-6 text-sm text-gray-300">
           <p>
             Dream Closet is your ultimate fashion destination, offering stylish
             and high-quality clothing for men, women, and kids. From trendy
@@ -124,7 +127,10 @@ export default function Products() {
       </div>
       {/* Related Rpoducts */}
 
-      <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
+      <RelatedProducts
+        category={productData.category}
+        subCategory={productData.subCategory}
+      />
     </div>
   ) : (
     <div className="opacity-0"></div>
