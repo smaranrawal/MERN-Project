@@ -30,14 +30,13 @@ export default function Navbar() {
     setUser(null);
     setCartItems({});
     localStorage.removeItem("token");
-    Cookies.remove("token");
     navigate("/login");
   };
 
   return (
     <>
       {/* Navbar */}
-      <header className="bg-gray-800 text-white shadow-md fixed top-0 left-0 w-full z-50">
+      <header className=" bg-gray-800 text-white shadow-md fixed top-0 left-0 w-full z-50">
         <div className="container mx-auto flex justify-between items-center h-16 px-6">
           {/* Logo */}
           <NavLink
@@ -104,7 +103,12 @@ export default function Navbar() {
                     <p className="cursor-pointer hover:text-black">
                       My Profile
                     </p>
-                    <p className="cursor-pointer hover:text-black">Orders</p>
+                    <p
+                      onClick={() => navigate("/orders")}
+                      className="cursor-pointer hover:text-black"
+                    >
+                      Orders
+                    </p>
                     <p
                       onClick={LogoutUser}
                       className="cursor-pointer hover:text-black"

@@ -19,7 +19,7 @@ export default function Cart() {
       for (const item in cartItems[items]) {
         if (cartItems[items][item]) {
           tempData.push({
-            id: items,
+            _id: items,
             size: item,
             quantity: cartItems[items][item],
           });
@@ -40,7 +40,7 @@ export default function Cart() {
       <div className="space-y-6">
         {cartData.map((item, index) => {
           const productData = products.find(
-            (product) => product.id.toString() === item.id
+            (product) => product._id.toString() === item._id
           );
           if (!productData) return null;
 
@@ -77,7 +77,11 @@ export default function Cart() {
                 onChange={(e) =>
                   e.target.value === "" || e.target.value === "0"
                     ? null
-                    : updateQuantity(item.id, item.size, Number(e.target.value))
+                    : updateQuantity(
+                        item._id,
+                        item.size,
+                        Number(e.target.value)
+                      )
                 }
                 className="border border-gray-500 h-10 w-12 sm:w-20 px-2 py-1 rounded-md bg-gray-900 text-white text-center"
                 type="number"
@@ -85,7 +89,7 @@ export default function Cart() {
                 defaultValue={item.quantity}
               />
               <FontAwesomeIcon
-                onClick={() => updateQuantity(item.id, item.size, 0)}
+                onClick={() => updateQuantity(item._id, item.size, 0)}
                 icon={faTrash}
                 className="text-2xl cursor-pointer"
               />

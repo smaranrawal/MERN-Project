@@ -19,7 +19,7 @@ export default function SearchBar({ onClose }) {
   }, [location]);
   return (
     visible && (
-      <div className="w-full bg-gray-600 p-3 flex justify-center items-center gap-3">
+      <div className="w-full bg-gray-800 p-3 flex justify-center items-center gap-3">
         <div className="flex items-center w-full max-w-md bg-white rounded-md shadow-md overflow-hidden">
           <input
             type="text"

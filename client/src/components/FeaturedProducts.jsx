@@ -7,11 +7,15 @@ export default function FeaturedProducts() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
 
   useEffect(() => {
-    setFeaturedProducts(products.slice(0, 10));
-  }, [products]); 
+    if (products && products.length > 0) {
+      setFeaturedProducts(products.slice(0, 10));
+      console.log(products);
+      console.log(featuredProducts);
+    }
+  }, [products]);
+
   return (
     <div className="container mx-auto px-4 py-10">
-      {/* Heading */}
       <div className="mb-8 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold text-amber-50">
           Featured Products
@@ -21,12 +25,11 @@ export default function FeaturedProducts() {
         </p>
       </div>
 
-   
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {featuredProducts.map((item, index) => (
+        {featuredProducts.map((item) => (
           <ProductItem
-            key={index}
-            id={item.id}
+            key={item._id}
+            id={item._id}
             image={item.image}
             name={item.name}
             price={item.price}

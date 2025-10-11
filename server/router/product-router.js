@@ -14,7 +14,7 @@ router.route("/add").post(
   ]),
   productcontrollers.addProducts
 );
-router.route("/list").get(adminAuth, productcontrollers.listProducts);
+router.route("/list").get(productcontrollers.listProducts);
 router.route("/remove").post(productcontrollers.removeProduct);
 router.route("/single").post(productcontrollers.singleProducts);
 

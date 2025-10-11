@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import ProductItem from "../components/ProductItem";
-import { products } from "../assets/assets";
+
 import { useSearchParams } from "react-router-dom";
-  
+import { ShopContext } from "../context/ShopContext";
+
 export default function Collection() {
+  const { products } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -82,14 +84,14 @@ export default function Collection() {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, sortType]);
+  }, [category, subCategory, search, showSearch, sortType, products]);
 
   /*useEffect(() => {
     sortProduct(sortType);
   }, [sortType]);*/
 
   return (
-    <div className="flex flex-col sm:flex-row gap-6 px-4 sm:px-10 pt-10 border-t">
+    <div className="flex flex-col sm:flex-row gap-6 px-4 sm:px-10  border-t">
       {/* Filter Sidebar */}
       <div className="w-full sm:w-64">
         {/* Filter Header */}
@@ -193,9 +195,9 @@ export default function Collection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filterProducts.map((item, index) => (
             <ProductItem
-              key={index}
+              key={item._id}
               name={item.name}
-              id={item.id}
+              _id={item._id}
               price={item.price}
               image={item.image}
             />
